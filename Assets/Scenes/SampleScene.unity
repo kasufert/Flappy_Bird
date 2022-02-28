@@ -235,6 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66b26019a2b27b54481bb620e9e84744, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _paused: 1
+  _timeUntilNextPipe: 158
+  _isBirdDead: 0
   _pipe: {fileID: 771395603240508511, guid: cb6a8f2f3a9a84f4aa319d1fdd3c1c54, type: 3}
 --- !u!4 &1974850609
 Transform:
@@ -262,6 +265,7 @@ GameObject:
   - component: {fileID: 2012311044}
   - component: {fileID: 2012311046}
   - component: {fileID: 2012311047}
+  - component: {fileID: 2012311048}
   m_Layer: 0
   m_Name: Bird
   m_TagString: Untagged
@@ -367,3 +371,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d04661ee96d72140b9958daa99caed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &2012311048
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2012311043}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1

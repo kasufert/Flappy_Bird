@@ -5,10 +5,21 @@ using UnityEngine;
 public class PipeScript : MonoBehaviour
 {
 	private Rigidbody2D _rb;
-	private bool _moved = false;
 	private void Awake()
 	{
 		_rb = GetComponent<Rigidbody2D>();
+		BirdScript.BirdDeath += OnBirdDeath;
+		Mgr.RestartGame += OnRestartGame;
+	}
+	private void OnRestartGame()
+	{
+		if (gameObject != null)
+			Destroy(gameObject);
+	}
+	private void OnDestroy()
+	{
+		BirdScript.BirdDeath -= OnBirdDeath;
+		Mgr.RestartGame -= OnRestartGame;
 	}
 	void Start()
 	{
@@ -28,8 +39,13 @@ public class PipeScript : MonoBehaviour
 		}
 
 	}
-
-	private void FixedUpdate()
+	private void OnBirdDeath()
 	{
+		if (_rb != null)
+			_rb.velocity = Vector2.zero;
+	}
+	private void OnTriggerEnter2D(Collider2D collision)
+	{
+		Mgr.IncScore();
 	}
 }
