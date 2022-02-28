@@ -7,7 +7,7 @@ public class BirdScript : MonoBehaviour
 	private Rigidbody2D _rb;
 	private Vector2 _vel;
 	private const float GRAV = 20f;
-	private const float JUMP_SPEED = 5f;
+	private const float JUMP_SPEED = 4.1f;
 	private const float TERMINAL_VELOCITY = 5f;
 	private bool _isDead = false;
 	public static event Action BirdDeath;
@@ -29,6 +29,10 @@ public class BirdScript : MonoBehaviour
 		if (!Mgr.Paused)
 		{
 			UpdateVelocity();
+			if (_rb.position.y > 2f || _rb.position.y < -2f)
+			{
+				BirdDeath();
+			}
 		}
 
 		void UpdateVelocity()
