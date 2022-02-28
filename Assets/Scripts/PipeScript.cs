@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PipeScript : MonoBehaviour
 {
+	public const float PIPE_SPEED = 2f;
+	public const float MAX_OFFSET = 1.5f;
+	private static float s_LastOffset = 0f;
 	private Rigidbody2D _rb;
 	private void Awake()
 	{
@@ -24,16 +27,24 @@ public class PipeScript : MonoBehaviour
 	void Start()
 	{
 		_rb.useFullKinematicContacts = true;
-		var _offset = (Mgr.RandNextFloat - .5f) * 4f;
-		Debug.Log("Rand Offset: " + _offset);
-		_rb.MovePosition(new Vector2(_rb.position.x, _offset));
-		_rb.velocity = new Vector2(-9f, 0);
+		float offset = GenerateNewOffset();
+		Debug.Log("Rand Offset: " + offset);
+		s_LastOffset = offset;
+		_rb.MovePosition(new Vector2(_rb.position.x, offset));
+		_rb.velocity = new Vector2(-PIPE_SPEED, 0);
+
+		static float GenerateNewOffset()
+		{
+			float offset = (Mgr.RandNextFloat - .5f) * 3f;
+			offset = Mathf.Clamp(offset, s_LastOffset - MAX_OFFSET, s_LastOffset + MAX_OFFSET);
+			return offset;
+		}
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
-		if (transform.position.x <= -5f)
+		if (transform.position.x <= -2f)
 		{
 			Destroy(gameObject);
 		}
