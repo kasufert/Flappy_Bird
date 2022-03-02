@@ -51,6 +51,14 @@ public class BirdScript : MonoBehaviour
 			}
 
 			_rb.velocity = _vel;
+			if (_vel.y >= -3f)
+			{
+				_rb.rotation = 40f;
+			}
+			else
+			{
+				_rb.rotation = _vel.y * (130f / 6f) + (130f / 1.5f);
+			}
 		}
 	}
 

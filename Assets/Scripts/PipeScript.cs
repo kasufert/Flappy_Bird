@@ -5,7 +5,7 @@ using UnityEngine;
 public class PipeScript : MonoBehaviour
 {
 	public const float PIPE_SPEED = 2f;
-	public const float MAX_OFFSET = 1.5f;
+	public const float TWICE_MAX_OFFSET = 1.6f;
 	private static float s_LastOffset = 0f;
 	private Rigidbody2D _rb;
 	private void Awake()
@@ -29,14 +29,15 @@ public class PipeScript : MonoBehaviour
 		_rb.useFullKinematicContacts = true;
 		float offset = GenerateNewOffset();
 		Debug.Log("Rand Offset: " + offset);
-		s_LastOffset = offset;
+		s_LastOffset = Mathf.Clamp(offset, -.2f, .2f);
 		_rb.MovePosition(new Vector2(_rb.position.x, offset));
 		_rb.velocity = new Vector2(-PIPE_SPEED, 0);
 
 		static float GenerateNewOffset()
 		{
-			float offset = (Mgr.RandNextFloat - .5f) * 3f;
-			offset = Mathf.Clamp(offset, s_LastOffset - MAX_OFFSET, s_LastOffset + MAX_OFFSET);
+			float nextF = Mgr.RandNextFloat;
+			float offset = (nextF - .5f + s_LastOffset) * TWICE_MAX_OFFSET;
+			Debug.Log("Rand Next Float: " + nextF);
 			return offset;
 		}
 	}
